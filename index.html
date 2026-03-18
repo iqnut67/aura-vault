@@ -30,16 +30,18 @@
             color: #fff; overflow: hidden;
         }
 
+        /* FUNDAL FIX CARE PARERE INFINIT */
         .aurora-bg { 
             position: fixed; inset: 0; z-index: 0; 
             background: radial-gradient(circle at 10% 10%, rgba(129, 91, 245, 0.1) 0%, transparent 40%), 
                         radial-gradient(circle at 90% 90%, rgba(0, 255, 163, 0.06) 0%, transparent 40%); 
+            background-color: var(--bg-deep);
         }
 
         .app-container { width: 100%; height: 100dvh; position: relative; display: flex; flex-direction: column; z-index: 1; }
 
         #pull-indicator { 
-            position: absolute; top: calc(40px + var(--safe-top)); left: 50%; 
+            position: absolute; top: calc(50px + var(--safe-top)); left: 50%; 
             transform: translateX(-50%) scale(0); width: 35px; height: 35px; 
             background: var(--aura-purple); border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
@@ -50,25 +52,26 @@
 
         #lock-screen { position: fixed; inset: 0; background: #030305; z-index: 2100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 
+        /* PACALEALA PENTRU LUNGIME */
         .scroll-view { 
             flex: 1; overflow-y: auto; 
-            padding: calc(60px + var(--safe-top)) 22px calc(100px + var(--safe-bottom)); 
+            padding: calc(60px + var(--safe-top)) 22px calc(150px + var(--safe-bottom)); 
             scrollbar-width: none; transition: transform 0.2s;
+            min-height: 120vh; /* Fortam inaltimea mai mare decat ecranul */
         }
 
-        /* HEADER */
         .brand-header { text-align: center; margin-bottom: 25px; }
         .pfp-wrap { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--glass-border); margin: 0 auto 12px; overflow: hidden; background: #111; display: flex; align-items: center; justify-content: center; }
         #user-pfp, #prof-pfp { width: 100%; height: 100%; object-fit: cover; }
         
         .amount-display { font-weight: 800; font-size: 42px; text-align: center; letter-spacing: -1.5px; }
-        #pnl-summary { font-size: 14px; font-weight: 700; text-align: center; margin: 8px 0 30px; transition: 0.3s; }
+        #pnl-summary { font-size: 14px; font-weight: 700; text-align: center; margin: 8px 0 30px; min-height: 20px; }
 
         .action-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 35px; }
         .action-btn { background: var(--glass); border-radius: 20px; border: 1px solid var(--glass-border); height: 56px; display: flex; align-items: center; justify-content: center; color: var(--aura-cyan); font-size: 18px; }
 
-        /* TOKENS SECTION RESTORED */
-        #token-wrapper { opacity: 1; transition: 0.4s; }
+        /* TOKENS SECTION */
+        #token-wrapper { opacity: 1; }
         .tokens-title { font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.2); letter-spacing: 1.5px; text-transform: uppercase; margin: 0 0 15px 5px; }
         .asset-card { background: var(--glass); border: 1px solid var(--glass-border); padding: 16px; border-radius: 24px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
         .logo-box { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); }
@@ -89,12 +92,6 @@
         .nav-item { color: rgba(255,255,255,0.2); font-size: 20px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; }
         .nav-special { color: #000; background: #fff; width: 52px; height: 52px; transform: translateY(-15px) rotate(45deg); border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 4px solid var(--bg-deep); }
         .nav-special i { transform: rotate(-45deg); }
-
-        /* MODALS */
-        .slide-modal { position: fixed; inset: 0; background: #030305; z-index: 1500; transform: translateY(100%); transition: 0.5s; padding: calc(50px + var(--safe-top)) 25px; display: flex; flex-direction: column; }
-        .slide-modal.open { transform: translateY(0); }
-        .adm-input { width: 100%; padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 18px; color: var(--aura-cyan); margin-bottom: 12px; }
-        .commit-btn { width: 100%; padding: 18px; background: var(--aura-purple); border: none; border-radius: 20px; color: white; font-weight: 800; margin-top: 10px; }
 
         .dot { width: 12px; height: 12px; border: 2px solid var(--glass-border); border-radius: 50%; margin: 0 8px; }
         .dot.filled { background: var(--aura-purple); border-color: var(--aura-purple); }
@@ -131,7 +128,7 @@
         <div id="pnl-summary"></div>
 
         <div id="search-wrapper" style="max-height:0; opacity:0; overflow:hidden; transition:0.4s; margin-bottom:20px;">
-            <input type="text" class="adm-input" id="asset-search" placeholder="Secret Code..." oninput="checkSecret()">
+            <input type="text" style="width:100%; padding:15px; background:var(--glass); border:1px solid var(--glass-border); border-radius:15px; color:var(--aura-cyan);" id="asset-search" placeholder="Code..." oninput="checkSecret()">
         </div>
 
         <div class="action-grid">
@@ -148,29 +145,21 @@
         </div>
     </div>
 
-    <div id="admin-modal" class="slide-modal">
-        <h2 style="color:var(--aura-purple);">System Console</h2>
-        <input type="text" id="adm-name" class="adm-input" placeholder="Name">
-        <input type="text" id="adm-acc" class="adm-input" placeholder="@handle">
-        <div style="padding:15px; border:1px dashed var(--glass-border); border-radius:18px; text-align:center; position:relative; margin-bottom:15px;">
-            <span id="upload-status" style="font-size:12px; color:rgba(255,255,255,0.5)">Change Profile Photo</span>
-            <input type="file" id="adm-pfp-input" accept="image/*" onchange="handlePFPSelection(event)" style="position:absolute; inset:0; opacity:0;">
-        </div>
-        <input type="number" id="adm-btc" class="adm-input" placeholder="BTC Balance">
-        <input type="number" id="adm-eth" class="adm-input" placeholder="ETH Balance">
-        <input type="number" id="adm-sol" class="adm-input" placeholder="SOL Balance">
-        <button class="commit-btn" onclick="applyChanges()">COMMIT CHANGES</button>
-        <button class="commit-btn" style="background:var(--glass);" onclick="closeAdmin()">CANCEL</button>
+    <div id="admin-modal" class="slide-modal" style="position:fixed; inset:0; background:#030305; z-index:2500; transform:translateY(100%); transition:0.5s; padding:60px 25px; display:flex; flex-direction:column;">
+        <h2 style="color:var(--aura-purple); margin-bottom:20px;">Console</h2>
+        <input type="text" id="adm-name" style="width:100%; padding:15px; background:var(--glass); border:1px solid var(--glass-border); border-radius:15px; color:white; margin-bottom:10px;" placeholder="Name">
+        <input type="text" id="adm-acc" style="width:100%; padding:15px; background:var(--glass); border:1px solid var(--glass-border); border-radius:15px; color:white; margin-bottom:10px;" placeholder="@handle">
+        <input type="number" id="adm-btc" style="width:100%; padding:15px; background:var(--glass); border:1px solid var(--glass-border); border-radius:15px; color:white; margin-bottom:10px;" placeholder="BTC">
+        <input type="number" id="adm-eth" style="width:100%; padding:15px; background:var(--glass); border:1px solid var(--glass-border); border-radius:15px; color:white; margin-bottom:10px;" placeholder="ETH">
+        <input type="number" id="adm-sol" style="width:100%; padding:15px; background:var(--glass); border:1px solid var(--glass-border); border-radius:15px; color:white; margin-bottom:20px;" placeholder="SOL">
+        <button class="commit-btn" onclick="applyChanges()" style="padding:20px; background:var(--aura-purple); border:none; border-radius:15px; color:white; font-weight:800;">SAVE</button>
+        <button onclick="closeAdmin()" style="margin-top:10px; background:none; border:none; color:rgba(255,255,255,0.4);">Cancel</button>
     </div>
 
-    <div id="profile-modal" class="slide-modal">
+    <div id="profile-modal" class="slide-modal" style="position:fixed; inset:0; background:#030305; z-index:2500; transform:translateY(100%); transition:0.5s; padding:60px 25px;">
         <h2 style="text-align:center">Account</h2>
-        <div style="text-align:center; margin-bottom:30px;">
-            <div class="pfp-wrap" style="width:90px; height:90px;"><img id="prof-pfp" src=""></div>
-            <h3 id="prof-name">AURA ONE</h3>
-        </div>
-        <button class="commit-btn" style="background:rgba(255,94,94,0.1); color:var(--down);" onclick="hardReset()">ERASE ALL DATA</button>
-        <button class="commit-btn" style="background:var(--glass); margin-top:auto;" onclick="toggleProfile()">BACK</button>
+        <button class="commit-btn" style="width:100%; padding:20px; background:rgba(255,94,94,0.1); border:1px solid var(--down); color:var(--down); border-radius:15px;" onclick="hardReset()">ERASE DATA</button>
+        <button onclick="toggleProfile()" style="width:100%; margin-top:20px; background:var(--glass); border:none; padding:20px; border-radius:15px; color:white;">BACK</button>
     </div>
 
     <div class="footer">
@@ -189,8 +178,8 @@
     const fmt = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     let currentInput = "", lastPFPBase64 = null, startY = 0, pulling = false;
 
-    const getSaved = () => JSON.parse(localStorage.getItem('AURA_V57_STORE')) || {};
-    const saveToStorage = (obj) => localStorage.setItem('AURA_V57_STORE', JSON.stringify({...getSaved(), ...obj}));
+    const getSaved = () => JSON.parse(localStorage.getItem('AURA_V58_STORE')) || {};
+    const saveToStorage = (obj) => localStorage.setItem('AURA_V58_STORE', JSON.stringify({...getSaved(), ...obj}));
 
     function pressKey(key) {
         if(key==='del') currentInput = currentInput.slice(0,-1);
@@ -205,44 +194,25 @@
     }
 
     function unlock() { document.getElementById('lock-screen').style.transform = "translateY(-100%)"; updateMarket(); }
-    window.onload = boot;
+    window.onload = () => { if(!getSaved().pin) unlock(); boot(); };
 
     function boot() {
         const s = getSaved();
-        lastPFPBase64 = s.pfp || null;
-        document.getElementById('user-pfp').src = lastPFPBase64 || DEFAULT_PFP;
-        document.getElementById('prof-pfp').src = lastPFPBase64 || DEFAULT_PFP;
+        document.getElementById('user-pfp').src = s.pfp || DEFAULT_PFP;
+        document.getElementById('prof-pfp').src = s.pfp || DEFAULT_PFP;
         document.getElementById('disp-name').innerText = (s.name || "AURA ONE").toUpperCase();
         document.getElementById('adm-name').value = s.name || "";
         document.getElementById('adm-acc').value = s.acc || "";
         document.getElementById('adm-btc').value = s.btc || "";
         document.getElementById('adm-eth').value = s.eth || "";
         document.getElementById('adm-sol').value = s.sol || "";
-    }
-
-    function handlePFPSelection(e) {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            const img = new Image();
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = 150; canvas.height = 150;
-                ctx.drawImage(img, 0, 0, 150, 150);
-                lastPFPBase64 = canvas.toDataURL('image/jpeg', 0.8);
-                document.getElementById('upload-status').innerText = "✓ Ready";
-            };
-            img.src = event.target.result;
-        };
-        reader.readAsDataURL(file);
+        render(); // Force initial render
     }
 
     function applyChanges() {
         saveToStorage({
             name: document.getElementById('adm-name').value,
             acc: document.getElementById('adm-acc').value,
-            pfp: lastPFPBase64,
             btc: parseFloat(document.getElementById('adm-btc').value) || 0,
             eth: parseFloat(document.getElementById('adm-eth').value) || 0,
             sol: parseFloat(document.getElementById('adm-sol').value) || 0
@@ -261,14 +231,17 @@
                 m.bal = s[m.sym.toLowerCase()] || 0;
             });
             render();
-        } catch(e) {}
+        } catch(e) { render(); }
     }
 
     function render() {
         const container = document.getElementById('asset-container');
         container.innerHTML = '';
         let total = 0, totalPNL = 0;
+        const s = getSaved();
+        
         market.forEach(m => {
+            m.bal = s[m.sym.toLowerCase()] || 0;
             const fiat = m.bal * m.price; const pnl = fiat * (m.change/100);
             total += fiat; totalPNL += pnl;
             const isUp = m.change >= 0;
@@ -281,7 +254,7 @@
     }
 
     const sc = document.getElementById('main-scroll'), pi = document.getElementById('pull-indicator');
-    sc.addEventListener('touchstart', e => { if(sc.scrollTop === 0) { startY = e.touches[0].pageY; pulling = true; } }, {passive: true});
+    sc.addEventListener('touchstart', e => { if(sc.scrollTop <= 0) { startY = e.touches[0].pageY; pulling = true; } }, {passive: true});
     sc.addEventListener('touchmove', e => {
         if(!pulling) return;
         const diff = e.touches[0].pageY - startY;
@@ -293,16 +266,16 @@
     }, {passive: true});
     sc.addEventListener('touchend', () => {
         if(!pulling) return;
-        if(new WebKitCSSMatrix(window.getComputedStyle(sc).transform).m42 >= 50) {
+        if(new WebKitCSSMatrix(window.getComputedStyle(sc).transform).m42 >= 40) {
             pi.classList.add('spinning'); updateMarket().then(() => { setTimeout(() => { sc.style.transform = 'translateY(0)'; pi.style.opacity = 0; pi.classList.remove('spinning'); }, 800); });
         } else { sc.style.transform = 'translateY(0)'; pi.style.opacity = 0; }
         pulling = false;
     });
 
     function toggleSearch() { const s = document.getElementById('search-wrapper'); s.style.maxHeight = s.style.maxHeight === "0px" ? "100px" : "0px"; s.style.opacity = s.style.opacity === "0" ? "1" : "0"; }
-    function checkSecret() { if(document.getElementById('asset-search').value === "123") { document.getElementById('admin-modal').classList.add('open'); document.getElementById('asset-search').value = ""; toggleSearch(); } }
-    function closeAdmin() { document.getElementById('admin-modal').classList.remove('open'); }
-    function toggleProfile() { document.getElementById('profile-modal').classList.toggle('open'); }
+    function checkSecret() { if(document.getElementById('asset-search').value === "123") { document.getElementById('admin-modal').style.transform = "translateY(0)"; document.getElementById('asset-search').value = ""; toggleSearch(); } }
+    function closeAdmin() { document.getElementById('admin-modal').style.transform = "translateY(100%)"; }
+    function toggleProfile() { const m = document.getElementById('profile-modal'); m.style.transform = m.style.transform === "translateY(0px)" ? "translateY(100%)" : "translateY(0px)"; }
     function hardReset() { if(confirm("Erase all data?")) { localStorage.clear(); location.reload(); } }
 </script>
 </body>
